@@ -1,0 +1,59 @@
+# codebuild buildspec.yml
+version: 0.1
+phases:
+    install:
+        commands:
+            - echo "install step"
+            - echo $AWS_ACCOUNT_ID $AWS_REGION $REPONAME
+
+    pre_build:
+        commands:
+            - echo logging in to ECR
+            - $(aws ecr get-login --no-include-email --region $AWS_REGION)
+    build:
+        commands:
+            - echo build docker container 
+            - aws ecr describe-repositories
+            - docker build --build-arg AWS_REGION=$AWS_REGION --build-arg AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID --build-arg HTTP_PROXY=$HTTP_PROXY --build-arg HTTPS_PROXY=$HTTPS_PROXY --build-arg NO_PROXY=$NO_PROXY -t myimage:latest .
+            -   |
+                if [ $? -eq 0 ] ; then 
+                    echo "Docker build successful"
+                else
+                    echo "Docker build failed"
+                    exit 1
+                fi
+            - echo "$REPONAME"
+            - docker save ${REPONAME}:latest | gzip > ${REPONAME}.tar.gz
+            -   |
+                if [ $? -eq 0 ] ; then 
+                    echo "image saved"
+                else
+                    echo "image save failed"
+                    exit 1
+                fi 
+            -   |
+                if [ ! -f ${REPONAME}.tar.gz ] ; then
+                    echo "image doesnt exist"
+                    exit 1
+                fi
+            -   |
+                if [ -z ${REPONAME}.tar.gz ] ; then 
+                    echo "image is of size zero"
+                    exit 1
+                fi 
+    post_build:
+        commands:
+            - echo "tagging and pushing image to ECR"
+            - echo "$AWS_ACCOUNT_ID" "$AWS_REGION"
+            - docker tag $REPONAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/${REPONAME}:latest
+            - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/${REPONAME}:latest
+            -   |
+                if [ $? -eq 0 ] ; then
+                    echo "image pushed"
+                else
+                    echo "image push failed"
+                fi 
+artifacts:
+    files:
+        - ${REPONAME}.tar.gz
+    discard-paths: yes            

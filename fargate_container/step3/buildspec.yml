@@ -1,0 +1,39 @@
+# codebuild buildspec.yml
+version: 0.1
+phases:
+    install:
+        commands:
+            - echo "install step"
+            - echo $AWS_ACCOUNT_ID $AWS_REGION $REPONAME
+
+    pre_build:
+        commands:
+            - echo logging in to ECR
+            - $(aws ecr get-login --no-include-email --region $AWS_REGION)
+    build:
+        commands:
+            - echo import docker container
+            - ls . 
+            - gunzip myimage.tar.gz 
+            - docker load < myimage.tar
+            -   |
+                if [ $? -eq 0 ] ; then 
+                    echo "Docker load successful"
+                else
+                    echo "Docker load failed"
+                    exit 1
+                fi
+            - docker images
+    post_build:
+        commands:
+            - echo "tagging and pushing image to ECR"
+            #- echo "$AWS_ACCOUNT_ID" "$AWS_REGION"
+            #- aws ecr describe-repositories
+            - docker tag myimage:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/${REPONAME}:latest
+            - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/${REPONAME}:latest
+            -   |
+                if [ $? -eq 0 ] ; then
+                    echo "image pushed"
+                else
+                    echo "image push failed"
+                fi 
