@@ -27,5 +27,6 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
-simple_api_lambda/.terraform.lock.hcl
+*/.terraform.lock.hcl
 simple_api_lambda/files/lambda1.zip
+
