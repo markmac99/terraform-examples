@@ -1,8 +1,7 @@
 FROM public.ecr.aws/lambda/python:3.8
-RUN pip install flask
 COPY *.py   ./
-
-# CMD ["lambda_function.lambda_handler"]
-
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+EXPOSE 5000
 ENTRYPOINT [ "python" ]
 CMD ["app.py"]

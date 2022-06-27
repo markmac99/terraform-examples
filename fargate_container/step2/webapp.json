@@ -1,7 +1,7 @@
 [
     {
-        "name": "mycontainer",
-        "image": "317976261112.dkr.ecr.eu-west-2.amazonaws.com/myimage:latest",
+        "name": "${CONTAINERNAME}",
+        "image": "317976261112.dkr.ecr.eu-west-2.amazonaws.com/${REPONAME}:latest",
         "cpu": 0,
         "portMappings": [
             {
@@ -17,7 +17,8 @@
         "logConfiguration" : {
             "logDriver" : "awslogs",
             "options": {
-                "awslogs-group": "/ecs/mytask",
+                "awslogs-create-group": "true",
+                "awslogs-group": "/ecs/${CONTAINERNAME}",
                 "awslogs-region": "eu-west-2",
                 "awslogs-stream-prefix": "ecs"
             }

@@ -14,7 +14,7 @@ phases:
         commands:
             - echo build docker container 
             - aws ecr describe-repositories
-            - docker build --build-arg AWS_REGION=$AWS_REGION --build-arg AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID --build-arg HTTP_PROXY=$HTTP_PROXY --build-arg HTTPS_PROXY=$HTTPS_PROXY --build-arg NO_PROXY=$NO_PROXY -t myimage:latest .
+            - docker build --build-arg AWS_REGION=$AWS_REGION --build-arg AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID --build-arg HTTP_PROXY=$HTTP_PROXY --build-arg HTTPS_PROXY=$HTTPS_PROXY --build-arg NO_PROXY=$NO_PROXY -t ${REPONAME}:latest .
             -   |
                 if [ $? -eq 0 ] ; then 
                     echo "Docker build successful"
