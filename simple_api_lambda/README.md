@@ -13,4 +13,6 @@ _provider.tf_ informs terraform that we want to execute the code against AWS.
 
 _vars.tf_ contains variables that reference your account. These are automatically populated at run-time by Terraform using the AWS configuration that you previously set up. This ensures that your key and secret are not stored in public. 
 
+_apigw_custom_domain.tf_ creates a custom domain name mapping, along with the required route53 entries, so that you can reference your API with a friendly name. 
+
 To use this code in a new project, copy everything to a new folder. To use this code in an existing terraform project, copy everything except provider.tf and vars.tf to a new folder. 
