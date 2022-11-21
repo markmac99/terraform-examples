@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-11-21T21:10:38.736Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" etag="qgxkkqXz6nANX7pg2_v8" version="20.5.3" type="github">
+<mxfile host="app.diagrams.net" modified="2022-11-21T21:13:06.016Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" etag="hgiyDvzwJq6h873TCOCa" version="20.5.3" type="github">
   <diagram id="tQhtkGQESIIlePFspuAc" name="Page-1">
     <mxGraphModel dx="782" dy="706" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -96,6 +96,9 @@
         </mxCell>
         <mxCell id="0IHBscNh08mXr2V07JyF-57" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.containers.userMale;strokeColor=#666666;strokeColor2=#008cff;" vertex="1" parent="1">
           <mxGeometry x="760" y="200" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="0IHBscNh08mXr2V07JyF-61" value="Areas to review&lt;br&gt;- how to access the webserver from on-prem&lt;br&gt;- what data we&#39;ll be processing&lt;br&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="530" y="530" width="260" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
